@@ -5,6 +5,7 @@
     </head>
     <body>
         <h2><%= @user.email %></h2>
+        <p>프로필 이미지 :<img src="<%= @user.profile.url %>" alt="userProfile" height="100" width="100"></p></p>
         <p>매칭여부 : <strong><%= @user.matching %></strong></p>
         <p><소개글></p> 
         <p><%= @user.introduce %></p>
@@ -57,11 +58,11 @@
         <p><a href="/valueplus/profileEdit/<%= @user.id %>">수정하기</a></p>
         <% end %>
         <hr>
-        <div>myCareer</div>
-        <p><%= render "myCareer" %></p>
+        <div class ="myCareer" style="cursor:pointer">myCareer</div>
+        <div class="careerRender"><%= render "myCareer" %></div>
         <% if @user.id == current_user.id %>
             <div class="myAssembly" style="cursor: pointer;">myAssembly</div>
-            <div class="assemblyRender" style="display:none;"><%= render "myAssembly" %><p></div>
+            <div class="assemblyRender" style="display:none;"><%= render "myAssembly" %></div>
             <div class="myScrap" style="cursor: pointer;">myScrap</div>
             <div class="scrapRender" style="display:none;"><%= render "myScrap" %></div>
             <div class="myDonate" style="cursor: pointer;">myDonate</div>
@@ -69,6 +70,9 @@
         <% end %>
     </body>
     <script>
+        $(document).on("click",".myCareer",function(){
+          $(".careerRender").toggle();
+        });
         $(document).on("click",".myAssembly",function(){
           $(".assemblyRender").toggle();
         });

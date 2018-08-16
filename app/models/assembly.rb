@@ -8,5 +8,7 @@ class Assembly < ActiveRecord::Base
     has_many :liked_users, through: :likes, source: :user
     has_many :scraped_users, through: :scraps, source: :user
     
-    mount_uploader :thumnail, ThumnailUploader
+    mount_uploader :thumbnail, ThumbnailUploader
+    mount_uploader :poster, PosterUploader
+    mount_uploader :report, ReportUploader
 end

@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20180809030924) do
 
   create_table "assemblies", force: :cascade do |t|
     t.string   "title"
-    t.string   "thumnail"
+    t.string   "thumbnail"
     t.string   "poster"
     t.text     "content"
     t.text     "purpose"

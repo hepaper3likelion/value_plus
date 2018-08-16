@@ -2,7 +2,7 @@ class CreateAssemblies < ActiveRecord::Migration
   def change
     create_table :assemblies do |t|
       t.string :title
-      t.string :thumnail
+      t.string :thumbnail
       t.string :poster
       t.text :content
       t.text :purpose

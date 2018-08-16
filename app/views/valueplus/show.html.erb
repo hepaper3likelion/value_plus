@@ -4,13 +4,16 @@
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services"></script>
 </head>
     <body>
-        <h2>제목 :<%= @assembly.title%></h2>
+        <h4>제목 :<%= @assembly.title%></h4>
+        <p>썸네일 :<img src="<%= @assembly.thumbnail.url %>" alt="thumbnail" height="100" width="100"></p>
+        <p>포스터 :<img src="<%= @assembly.poster.url %>" alt="poster" height="100" width="100"></p>
         <p>분야 : <%= @assemblyCategory%></p>
         <p>목적 :<%= @assembly.purpose%></p>
         <p>내용 : <%= @assembly.content%></p>
         <p>날짜 :<%= @assembly.calendar%></p>
         <p>장소 :<%= @assembly.roadAddress %></p>
         <div id="map" style="width:350px;height:350px;"></div>
+        <p>신고서 이미지:<img src="<%= @assembly.report.url %>" alt="report" height="100" width="100"></p>
         <p>후원 마감 : <%= @assembly.donateDeadline %></p>
             <p>후원 목표 :<%= @assembly.donateGoal %></p>
             <p>현재까지 후원 금액 : <%= @donateMoney %></p>
@@ -19,6 +22,7 @@
             <p>주최자 이름 :<%= @assembly.host.name %></p>
             <p>주최자 이메일 :<%= @assembly.host.email %></p>
             <p>주최자 소개 :<%= @assembly.host.intro %></p>
+            <p>주최자 프로필 이미지 :<img src="<%= @assembly.host.profileImg.url %>" alt="hostProfile" height="100" width="100"></p>
         </p>
         <strong>Like:</strong>
         <p>

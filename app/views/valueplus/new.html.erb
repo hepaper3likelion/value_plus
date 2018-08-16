@@ -5,11 +5,11 @@
     </head>
     <body>
         <h3>집회 등록하기</h3>
-        <form action = "/valueplus/create" method = "post" entype = "multipart/form-data">
+        <form action = "/valueplus/create" method = "post" enctype = "multipart/form-data">
             <input type="hidden" name="check" value=1>
             <input type="hidden" name="user_id" value="<%= current_user.id %>">
             <p>집회명 : <input type = "string" name = "title"></p>
-            <p>썸네일 이미지: <input type = "file" name = "thumnail"></p>
+            <p>썸네일 이미지: <input type = "file" name = "thumbnail"></p>
             <p>집회 포스터 이미지: <input type = "file" name = "poster"></p>
             <p>집회 설명: <input type = "string" name = "content"></p>
             <p><분야></p>
@@ -39,6 +39,7 @@
                 <p>주최자 이름 :<input type="string" name="name"></p>
                 <p>주최자 이메일 :<input type="email" name="email"></p>
                 <p>주최자 소개 :<input type="text" name="intro"></p>             
+                <p>주최자 프로필이미지 :<input type="file" name="hostProfile"></p>
             </p>            
             <p><button type = "submit">검토 요청 하기</button></p>
         </form>

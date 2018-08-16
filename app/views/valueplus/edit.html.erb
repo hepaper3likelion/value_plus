@@ -4,11 +4,11 @@
         <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
     </head>
     <body>
-        <form action = "/valueplus/update" method = "post" entype = "multipart/form-data">
+        <form action = "/valueplus/update" method = "post" enctype = "multipart/form-data">
             <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
             <input type="hidden" name="assembly_id" value="<%= @assembly.id%>">
             <p>집회명 : <input type = "string" name = "title" value = <%= @assembly.title %>></p>
-            <p>썸네일 이미지: <input type = "file" name = "thumnail" value = <%= @assembly.thumnail %>></p>
+            <p>썸네일 이미지: <input type = "file" name = "thumbnail"></p>
             <p>집회 포스터 이미지: <input type = "file" name = "poster"></p>
             <p>집회 설명: <input type = "string" name = "content" value = <%= @assembly.content %>></p>
             <p><분야></p>
@@ -73,7 +73,8 @@
             <p>주최자
                 <p>주최자 이름 :<input type="string" name="name" value = <%= @assembly.host.name %>></p>
                 <p>주최자 이메일 :<input type="email" name="email" value = <%= @assembly.host.email %>></p>
-                <p>주최자 소개 :<input type="text" name="intro" value = <%= @assembly.host.intro %>></p>             
+                <p>주최자 소개 :<input type="text" name="intro" value = <%= @assembly.host.intro %>></p>
+                <p>주최자 프로필 이미지 :<input type="file" name="hostProfile"></p>
             </p>   
             <button type = "submit">수정하기</button>
         </form>

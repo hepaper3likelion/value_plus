@@ -3,56 +3,68 @@
     <head>
     </head>
     <body>
-        <form action= '/valueplus/sort' method='post'>
-            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-            <input type="radio" name="sort" value="like">추천순<br>
-            <input type="radio" name="sort" value="recent">최신순<br>
-            <button type ='submit'>submit</button>
-        </form>
-        <form action= '/valueplus/field' method='post'>
-            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-            <input type="radio" name="field" value="politic">정치<br>
-            <input type="radio" name="field" value="society">사회일반<br>
-            <input type="radio" name="field" value="education">교육<br>
-            <input type="radio" name="field" value="foodMedi">식품/의료<br>
-            <input type="radio" name="field" value="press">언론<br>
-            <input type="radio" name="field" value="environment">환경<br>
-            <input type="radio" name="field" value="right">인권/복지<br>
-            <input type="radio" name="field" value="female">여성<br>
-            <button type ='submit'>submit</button>
-        </form>
-        <form action= '/valueplus/sido' method='post'>
-            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-            <input type="radio" name="sido" value="seoul">서울<br>
-            <input type="radio" name="sido" value="incheon">인천<br>
-            <input type="radio" name="sido" value="gyeonggi">경기<br>
-            <input type="radio" name="sido" value="busan">부산<br>
-            <input type="radio" name="sido" value="gangwon">강원<br>
-            <input type="radio" name="sido" value="chungbuk">충북<br>
-            <input type="radio" name="sido" value="sejong">세종<br>
-            <input type="radio" name="sido" value="chungnam">충남<br>
-            <input type="radio" name="sido" value="daejun">대전<br>
-            <input type="radio" name="sido" value="gyeongbuk">경북<br>
-            <input type="radio" name="sido" value="daegu">대구<br>
-            <input type="radio" name="sido" value="ulsan">울산<br>
-            <input type="radio" name="sido" value="gyeongnam">경남<br>
-            <input type="radio" name="sido" value="junbuk">전북<br>
-            <input type="radio" name="sido" value="junnam">전남<br>
-            <input type="radio" name="sido" value="gwuangju">광주<br>
-            <input type="radio" name="sido" value="jeju">제주<br>
-            <button type ='submit'>submit</button>
-        </form>
+        <div class="input-field col s12">
+            <form action="/valueplus/sort" method="post">
+                <select name="sort" class="sortSelect">
+                    <option value="" disabled selected>정렬</option>
+                    <option value="like">추천순</option>
+                    <option value="recent">최신순</option>
+                </select>
+                <label></label>
+            </form>
+        </div>
+        <div class="input-field col s12">
+            <form action="/valueplus/field" method="post">
+                <select name="field" class="fieldSelect">
+                    <option value="" disabled selected>분야</option>
+                    <option value="politic">정치</option>
+                    <option value="society">사회일반</option>
+                    <option value="education">교육</option>
+                    <option value="foodMedi">식품/의료</option>
+                    <option value="press">언론</option>
+                    <option value="environment">환경</option>
+                    <option value="right">인권/복지</option>
+                    <option value="female">여성</option>
+                </select>
+                <label></label>
+            </form>
+        </div>
+        <div class="input-field col s12">
+            <form action="/valueplus/sido" method="post">
+                <select name="sido" class="sortSelect">
+                    <option value="" disabled selected>지역</option>
+                    <option value="seoul">서울</option>
+                    <option value="incheon">인천</option>
+                    <option value="gyeonggi">경기</option>
+                    <option value="busan">부산</option>
+                    <option value="gangwon">강원</option>
+                    <option value="chungbuk">충북</option>
+                    <option value="sejong">세종</option>
+                    <option value="chungnam">충남</option>
+                    <option value="daejun">대전</option>
+                    <option value="gyeongbuk">경북</option>
+                    <option value="daegu">대구</option>
+                    <option value="ulsan">울산</option>
+                    <option value="gyeongnam">경남</option>
+                    <option value="junbuk">전북</option>
+                    <option value="junnam">전남</option>
+                    <option value="gwuangju">광주</option>
+                    <option value="jeju">제주</option>
+                </select>
+                <label></label>
+            </form>
+        </div>
         <% @assembly.each do |a|%>
             <p>
                 <% remain = a.calendar - Date.today %>
-                <h3><a href="/valueplus/show/<%=a.id%>"><%= a.title%></a>
+                <h5><a href="/valueplus/show/<%=a.id%>"><%= a.title%></a>
                     <% if remain == 0 %>
-                        (오늘)</h3>
+                        (오늘)</h5>
                     <% else %>
-                        (<%= remain.to_i%>일 남음)</h3>
+                        (<%= remain.to_i%>일 남음)</h5>
                     <% end %>
             </p>
-            <p>썸네일 :<%=a.thumnail.url%></p>
+            <p><img src="<%= a.thumbnail.url %>" alt="thumbnail" height="100" width="100"></p>
             <p>분야 : <%= a.category%></p>
             <p>내용 : <%=a.content%></p>
             <p>목적 : <%=a.purpose%></p>
@@ -61,31 +73,23 @@
             <p>후원 목표 :<%=a.donateGoal%></p>
             <p>현재까지 후원 금액 : <%= Donation.where(:assembly_id => a).sum(:donateUser) %></p>
             <p><a href ="/valueplus/donate_view/<%= a.id %>">후원하러 가기</a></p>
-            <strong>Like:</strong>
-            <p>
-                <%=a.likes.size%>명이 좋아합니다!
-                <% if current_user.is_like? (a) %>
-                    <form action='/assembly/<%= a.id%>/like' method='post'>
-                        <button> 좋아요 취소 </button>  
-                    </form>
-                <% else %>
-                    <form action='/assembly/<%= a.id%>/like' method='post'>
-                        <button> 좋아요</button>  
-                    </form>
-                <% end %>
-            </p>
-            <strong>Scrap:</strong>
-            <p>
-                <% if current_user.is_scrap? (a) %>
-                    <form action='/assembly/<%= a.id%>/scrap' method='post'>
-                    <button> 스크랩 취소 </button>  
-                    </form>
-                <% else %>
-                    <form action='/assembly/<%= a.id%>/scrap' method='post'>
-                        <button> 스크랩 </button>  
-                    </form>
-                <% end %>
-            </p>
         <% end %> 
     </body>
+    <script>
+        $(document).ready(function(){
+            $('.sortSelect').formSelect().change(function() {
+                this.form.submit();
+            });;
+        });
+        $(document).ready(function(){
+            $('.fieldSelect').formSelect().change(function() {
+                this.form.submit();
+            });;
+        });
+        $(document).ready(function(){
+            $('.sidoSelect').formSelect().change(function() {
+                this.form.submit();
+            });;
+        });
+    </script>
 </html>

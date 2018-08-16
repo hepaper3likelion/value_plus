@@ -12,13 +12,14 @@ class ValueplusController < ApplicationController
   end
   #집회 상세보기
   def show
+    #집회
     @assembly = Assembly.find(params[:assembly_id]) 
+    #총 후원 금액
     @donateMoney = Donation.where(:assembly_id => params[:assembly_id]).sum(:donateUser)
     #집회분야가 한글로 표시된 변수
     @assemblyCategory = caseCategory(@assembly.category)
-    #집회 주소
   end
-  #집회에서 분야가 숫자로 저장되기 때문에 이를 한글로 반환하는 메소드
+  #집회에서 분야가 숫자로 저장되기 때문에 이를 한글로 변환하는 메소드
   def caseCategory(category)
     case category
       when 0
@@ -57,6 +58,10 @@ class ValueplusController < ApplicationController
     assembly.roadAddress = params[:roadAddress]
     assembly.specificAdd = params[:specificAdd]
     assembly.sido = params[:sido]
+    assembly.thumbnail = params[:thumbnail]
+    assembly.poster = params[:poster]
+    assembly.report = params[:report]
+    
     assembly.save
     
     host = Host.new
@@ -64,6 +69,7 @@ class ValueplusController < ApplicationController
     host.name = params[:name]
     host.email = params[:email]
     host.intro = params[:intro]
+    host.profileImg = params[:hostProfile]
     host.save
     
     redirect_to "/valueplus/show/#{assembly.id}"
@@ -86,16 +92,19 @@ class ValueplusController < ApplicationController
     assembly.donateDeadline = params[:donateDeadline]
     assembly.donateGoal = params[:donateGoal]
     assembly.category = params[:category]
-    assembly.check = params[:check]
     assembly.roadAddress = params[:roadAddress]
     assembly.specificAdd = params[:specificAdd]
     assembly.sido = params[:sido]
+    assembly.thumbnail = params[:thumbnail]
+    assembly.poster = params[:poster]
+    assembly.report = params[:report]
     assembly.save
 
     host = Host.find_by_assembly_id(params[:assembly_id])
     host.name = params[:name]
     host.email = params[:email]
     host.intro = params[:intro]
+    host.profileImg = params[:hostProfile]
     host.save
     
     redirect_to "/valueplus/show/#{assembly.id}"
@@ -161,6 +170,7 @@ class ValueplusController < ApplicationController
     user.profile = params[:profile]
     user.matching = params[:matching]
     user.introduce = params[:introduce]
+    user.profile = params[:userProfile]
     user.save
     
     category = Category.find_by_user_id(params[:user_id])

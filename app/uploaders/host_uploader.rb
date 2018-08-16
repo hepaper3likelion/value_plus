@@ -1,4 +1,4 @@
-class ProfileUploader < CarrierWave::Uploader::Base
+class HostUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick

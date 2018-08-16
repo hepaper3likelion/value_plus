@@ -3,6 +3,7 @@
     <head>
     </head>
     <body>
+        <h5><내 집회></h5>
         <% @myAssembly.each do |a| %>
             <p><a href ="/valueplus/show/<%= a.id %>"><%= a.title %></a></p>
             <p><a href ="/valueplus/edit/<%= a.id %>">수정</a><a href ="/valueplus/destroy/<%= a.id %>">삭제</a></p>

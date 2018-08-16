@@ -4,7 +4,7 @@
     </head>
     <body>
         <% if @myScrap %>
-            <h3><내 스크랩></h3>
+            <h5><내 스크랩></h5>
             <% @myScrap.each do |s| %>
                 <p>"<a href ="/valueplus/show/<%= s.id %>"><%=s.title%></a>"</p>
             <% end %>
