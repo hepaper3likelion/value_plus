@@ -6,12 +6,50 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   
-  <!--materialize CDN-->
-  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
 
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+
+    <style>
+          .link-nav a {
+            color: red;
+          }
+
+            font-weight; 600;    </style>
+    
+    <nav>
+        <div class="nav-wrapper white">
+            <a href="/valueplus/index" class="brand-logo center"><img src="http://imgdb.kr/e6jc.jpg" style="width:23%; height:23%; margin-top:17px; margin-right:40px;"></a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down" style="position:absolute; left:200px;">
+              <li><a class="red-text" href="/valueplus/list" style="font-weight:bold;">둘러보기</a></li>
+              <li><a class="red-text" href="/valueplus/new" style="font-weight:bold;">등록하기</a></li>
+              <li><a class="red-text" href="/valueplus/match" style="font-weight:bold;">피플</a></li>
+            </ul>
+  
+            <div class="right hide-on-med-and-down red-text" style="font-weight:bold; position:absolute; right:220px;">
+              <% if user_signed_in? %>
+                <ul>
+                  <li><%=current_user.email%></li>
+                  <li><a class="red-text" href='/valueplus/mypage/<%=current_user.id%>' style="font-weight:bold;">마이페이지</a></li>
+                  
+                  <li class="link-nav red-text"><%=link_to '로그아웃', destroy_user_session_path, method: 'get'%></li>
+                </ul>
+                <% else %>
+                <ul>
+                    <li class="link-nav red-text"><%=link_to '회원가입', new_user_registration_path %></li>
+                    <li class="link-nav red-text"><%=link_to '로그인', new_user_session_path %></li>
+                </ul>
+              <% end %>  
+            </div>
+      
+      
+    </div>
+  </nav>
+        
+  
+  
 </head>
 <body>
 

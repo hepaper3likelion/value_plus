@@ -2,13 +2,22 @@
 <html>
     <head>
     </head>
+    
     <body>
-        <h2>"<%= @assembly.title %>" 후원하기</h2>
-        <form action= '/valueplus/donate' method='post'>
-            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-            <input type="hidden" name ="assembly_id" value=<%= @assembly.id%>>
-            금액 : <input type="number" name="donateUser">원<br>
-            <button type ='submit'>submit</button>
-        </form>        
+        <br><br><br><br><br><br>
+        <div class="container row">
+            <h2><b><%= @assembly.title %></b></h2>
+            <form action= '/valueplus/donate' method='post' class="col s12">
+                <div class="row">
+                    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                    <input type="hidden" name ="assembly_id" value=<%= @assembly.id%>>
+                    <div class="input-field col s8">
+                        <h5>저는 이 시위를 위해</h5>
+                        <h5><input type="number" name="donateUser" class="col s6">원을 후원하겠습니다.</h5><br><br><br>
+                        <button type ='submit' class="col s6 btn-large waves-effect waves-light red accent-1 intro">후원하기</button>
+                    </div>
+                </div>
+            </form>                
+        </div>
     </body>
 </html>

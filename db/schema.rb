@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180809030924) do
+ActiveRecord::Schema.define(version: 20180824125313) do
 
   create_table "abilities", force: :cascade do |t|
     t.boolean  "plan"
@@ -108,18 +108,6 @@ ActiveRecord::Schema.define(version: 20180809030924) do
   add_index "likes", ["assembly_id"], name: "index_likes_on_assembly_id"
   add_index "likes", ["user_id"], name: "index_likes_on_user_id"
 
-  create_table "posters", force: :cascade do |t|
-    t.string   "poster"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "reports", force: :cascade do |t|
-    t.string   "report"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "scraps", force: :cascade do |t|
     t.integer  "assembly_id"
     t.integer  "user_id"
@@ -147,6 +135,8 @@ ActiveRecord::Schema.define(version: 20180809030924) do
     t.text     "introduce"
     t.boolean  "admin"
     t.string   "profile"
+    t.integer  "user_id"
+    t.string   "name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

@@ -1,15 +1,43 @@
 class ValueplusController < ApplicationController
   before_action :authenticate_user!, only: [:create, :new, :destroy, :edit, :update, :show, :mypage, :donate, :profileEdit, :profileUpdate, :mypage, :check, :afterSigningUp, :aftersigningUp_view]
   def index
+    
+    # @assembly => 집회
+    @assembly = Assembly.where(["assemblies.calendar >= ?", Date.today]).where(:check => 1)
+    
     #마감된 집회 제외 추천순으로 저장
-    assembly = Assembly.where(["assemblies.calendar >= ?", Date.today]).where(:check => 1).order(like: :desc)
+    @assemblyLike = Assembly.where(["assemblies.calendar >= ?", Date.today]).where(:check => 1).order(like: :desc)
     #carousel에 들어갈 상위 4개 집회 추출
-    @carousel = assembly.limit(4)
-    #분야별 추천수 상위 4개 집회
-    @politic = assembly.where(:category => 0).limit(4)
-    @society = assembly.where(:category => 1).limit(4)
-    @education = assembly.where(:category => 2).limit(4)
+    @carousel = @assemblyLike.limit(4)
+    #최신 순위 4개 집회
+    @politic = @assemblyLike.where(:category => 0).limit(1)
+    @society = @assemblyLike.where(:category => 1).limit(1)
+    @education = @assemblyLike.where(:category =>2).limit(1)
+    @labor = @assemblyLike.where(:category => 3).limit(1)
+    @foodMedi = @assemblyLike.where(:category => 4).limit(1)
+    @press = @assemblyLike.where(:category => 5).limit(1)
+    @environment = @assemblyLike.where(:category => 6).limit(1)
+    @right = @assemblyLike.where(:category => 7).limit(1)
+    @female = @assemblyLike.where(:category => 8).limit(1)
+    
+    #마감 기한이 다가온 순으로 4개 추출
+    
+    @date = @assembly.limit(4).order(calendar: :asc)
+    
+    #유저정보 4개 추출
+    
+    #.searchAbility(ability).searchCategory(category). 
+    
+    @people = User.all.limit(4).order(id: :desc)
+    
+    # 신규 순 추출
+    @newassembly = @assembly.limit(4).order(id: :desc)
+
+    
+
+    
   end
+  
   #집회 상세보기
   def show
     #집회
@@ -134,6 +162,7 @@ class ValueplusController < ApplicationController
   end
   #유저 매칭 뷰
   def match
+    @people = User.all
     ability = $ability
     category = $category
     @userMatch = User.searchAbility(ability).searchCategory(category)
@@ -170,7 +199,7 @@ class ValueplusController < ApplicationController
     user.profile = params[:profile]
     user.matching = params[:matching]
     user.introduce = params[:introduce]
-    user.profile = params[:userProfile]
+    user.profile = params[:profile]
     user.save
     
     category = Category.find_by_user_id(params[:user_id])
@@ -206,7 +235,9 @@ class ValueplusController < ApplicationController
     @myScrap = Assembly.includes(:scraps).where(:scraps => {:user_id => params[:user_id]})
     @myDonate = Donation.where(:user_id => params[:user_id])
     @myCareer = Career.where(:user_id => params[:user_id])
+  
   end
+  
   #커리어 등록 액션
   def myCareer
     myCareer = Career.new
@@ -239,7 +270,10 @@ class ValueplusController < ApplicationController
     unless current_user.admin == true
       redirect_to '/'
     end
-      @check = Assembly.where(:check => 2)
+      # @check = Assembly.where(:check => 2)
+      @notchecked = Assembly.where(:check => 2).limit(4).order(id: :desc)
+      @checked_yes = Assembly.where(:check => 1).limit(4).order(id: :desc)
+      @checked_no = Assembly.where(:check => 0).limit(4).order(id: :desc)
   end 
   #검토 승인, 거부하는 액션
   def check_yes
@@ -247,19 +281,32 @@ class ValueplusController < ApplicationController
     assembly.check = 1
     assembly.save
     
-    redirect_to '/valueplus/check'
+    redirect_to '/valueplus/checked_yes'
   end
   def check_no
     assembly = Assembly.find(params[:assembly_id])
     assembly.check = 0
     assembly.save
     
-    redirect_to '/valueplus/check'
+    redirect_to '/valueplus/checked_no'
+  end
+  def notchecked
+    #미검토 시위
+    @assembly = Assembly.where(:check => 2)
+  end
+  def checked_yes
+    #검토 승인한 시위
+    @assembly = Assembly.where(:check => 1)
+  end
+  def checked_no
+    #검토 거부한 시위
+    @assembly = Assembly.where(:check => 0)
   end
   #전체 리스팅 페이지
   def list
     # @assembly => 집회
-    @assembly = Assembly.where(["assemblies.calendar >= ?", Date.today]).where(:check => 1)
+    @assembly = Assembly.where(["assemblies.calendar >= ?", Date.today]).where(:check => 1).all
+    
     case $field
       when "politic"
         @assembly = @assembly.where(:category => 0)
@@ -367,8 +414,11 @@ class ValueplusController < ApplicationController
     
     user = User.find(params[:user_id])
     user.matching = params[:matching]
+    user.profile = params[:profile]
+    user.name = params[:name]
     user.save
     
     redirect_to '/'
   end
+ 
 end

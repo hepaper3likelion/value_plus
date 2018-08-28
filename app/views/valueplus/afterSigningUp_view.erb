@@ -1,31 +1,201 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
-        <form action= '/valueplus/afterSigningUp' method='post'>
+        <form action= '/valueplus/afterSigningUp' method='post' enctype = "multipart/form-data">
             <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
             <input type = "hidden" name="user_id" value=<%=current_user.id%>>
-            <p>분야선택</p>
-            <input type = "checkbox" name= "politic" value= true>정치
-            <input type = "checkbox" name= "society" value= true>사회
-            <input type = "checkbox" name= "education" value= true>교육
-            <input type = "checkbox" name= "labor" value= true>노동
-            <input type = "checkbox" name= "foodMedi" value= true>식품/의료
-            <input type = "checkbox" name= "press" value= true>언론
-            <input type = "checkbox" name= "environment" value= true>환경
-            <input type = "checkbox" name= "right" value= true>인권
-            <input type = "checkbox" name= "female" value= true>여성
-            <p>능력 선택</p>
-            <input type ="checkbox" name= "plan" value= true>기획
-            <input type ="checkbox" name= "mc" value= true>진행
-            <input type ="checkbox" name= "design" value= true>디자인
-            <input type ="checkbox" name= "video" value= true>영상
-            <input type ="checkbox" name= "sns" value= true>sns
-            <p>매칭여부 선택</p>
-            <input type ="radio" name= "matching" value= true>yes
-            <input type ="radio" name= "matching" value= false>no
-            <button type ='submit'>submit</button>
+            
+            <div class="container">
+              
+              
+              <!--회원정보 입력 안내-->
+              <div class="after-intro">
+                <h3 class="after-intro-h3">같이가치 회원정보를
+                                          <br>입력해주세요!</h3>
+                <p class="after-intro-p">
+                    같이가치 회원가입을 위해 회원정보를 입력해주세요.
+                    <br>회원정보를 통해 서비스 이용이 편리해지도록 도와드립니다.
+                </p>
+              </div>
+              
+              
+              <hr>
+              
+              
+              <!--사용자 이름 카테고리-->
+              <div class="after-content content-name" style="margin-top:60px;">
+                <div class="after-content text">
+                <img src="http://imgdb.kr/e8Q3.jpg" style="width:32px; height:32px;"><h4 class="content-title">사용자 정보</h4>
+                </div>
+                
+                
+                <div class="row" style="margin: 0;">
+                  <div class="input-field col s6" style="margin-left: 20px;">
+                    <input id="last_name" type="text" class="validate" name="name"/>
+                    <label for="last_name">이름</label>
+                  </div>
+                </div>
+                
+                <!--<p>-->
+                <!--  <span>이름: </span>-->
+                <!--  <input type = "string" name = "name"/>-->
+                <!--</p>-->
+             </div>  
+              
+              
+              <!--분야 선택 카테고리-->
+              <div class="after-content content-category">
+                <div class="after-content text">
+                <img src="http://imgdb.kr/e8Q3.jpg" style="width:32px; height:32px;"><h4 class="content-title">분야선택</h4>
+                </div>
+                <div class="category-select">    
+                    <p>
+                      <label>
+                        <input name="politic" value= true type="checkbox"/>
+                        <span style="padding-left: 26px;padding-right: 21px;">정치</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input name="society" value= true type="checkbox"/>
+                        <span style="padding-left: 26px;padding-right: 21px;">사회</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input name="education" value= true type="checkbox"/>
+                        <span style="padding-left: 26px;padding-right: 21px;">교육</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input name="labor" value= true type="checkbox"/>
+                        <span style="padding-left: 26px;padding-right: 21px;">노동</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input name="foodMedi" value= true type="checkbox"/>
+                        <span style="padding-left: 26px;padding-right: 21px;">식품/의료</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input name="press" value= true type="checkbox"/>
+                        <span style="padding-left: 26px;padding-right: 21px;">언론</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input name="environment" value= true type="checkbox"/>
+                        <span style="padding-left: 26px;padding-right: 21px;">환경</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input name="right" value= true type="checkbox"/>
+                        <span style="padding-left: 26px;padding-right: 21px;">인권</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input name="female" value= true type="checkbox"/>
+                        <span style="padding-left: 26px;padding-right: 21px;">여성</span>
+                      </label>
+                    </p>
+                </div>
+              </div>    
+              
+    
+              <!--능력 선택 카테고리-->
+              <div class="after-content content-ablity">
+                <div class="after-content text">
+                <img src="http://imgdb.kr/e8Q3.jpg" style="width:32px; height:32px;"><h4 class="content-title">능력 선택</h4>
+                </div> 
+                <div class="category-select"> 
+                    <p>
+                      <label>
+                        <input name="plan" value= true type="checkbox"/>
+                        <span style="padding-left: 26px;padding-right: 21px;">기획</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input name="mc" value= true type="checkbox"/>
+                        <span style="padding-left: 26px;padding-right: 21px;">진행</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input name="design" value= true type="checkbox"/>
+                        <span style="padding-left: 26px;padding-right: 21px;">디자인</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input name="video" value= true type="checkbox"/>
+                        <span style="padding-left: 26px;padding-right: 21px;">영상</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input name="sns" value= true type="checkbox"/>
+                        <span style="padding-left: 26px;padding-right: 21px;">SNS</span>
+                      </label>
+                    </p>
+                </div>
+              </div>
+              
+              
+              <!--매칭여부 선택 카테고리-->
+              <div class="after-content content-matching">
+                <div class="after-content text">
+                <img src="http://imgdb.kr/e8Q3.jpg" style="width:32px; height:32px;"><h4 class="content-title">매칭여부 선택</h4>
+                </div>
+                <div class="category-select">
+                    <p>
+                      <label>
+                        <input name="matching" value= true type="radio"/>
+                        <span style="padding-left: 32px;padding-right: 21px;">yes</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input name="matching" value= false type="radio"/>
+                        <span style="padding-left: 32px;padding-right: 21px;">no</span>
+                      </label>
+                    </p>
+                </div>
+              </div>    
+                    
+                
+                <!--프로필 이미지 설정 카테고리-->
+                <div class="after-content content-profile">
+                  <div class="after-content text">
+                    <img src="http://imgdb.kr/e8Q3.jpg" style="width:32px; height:32px;"><h4 class="content-title">프로필 이미지 설정</h4>    
+                    </div>
+                  <div class="active file-field input-field" style="margin-left:32px; margin-top:32px;">
+                    <div class="waves-effect waves-light btn grey">
+                      <span>파일 선택</span>
+                      <input type="file" name="profile"/>
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input class="file-path validate" type="text" placeholder="사용자 프로필로 사용할 파일을 선택하세요">
+                    </div>
+                  </div>
+                </div>
+                
+                  
+        
+                <button class="waves-effect waves-light btn-large red signup-button" type ='submit' style="padding-left: 40px; padding-right: 40px; float: right;">같이가치 시작</button>
+                
+                
+                
+            </div>
+            
         </form>
     </body>
 </html>

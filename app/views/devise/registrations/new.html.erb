@@ -1,29 +1,60 @@
-<h2>Sign up</h2>
+<head>
+        <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"> 
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script>
+            $(document).ready(function() {
+              M.updateTextFields();
+            });
+        </script>
+</head>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<body>
+  
+  <div class="row login">
+    <div class="col s6 login-img">
+      <p class="white-text login-p">같은 가치를 추구하는 사람들과
+                                                    <br>함께 힘을 모으세요</p>
+      <i class="material-icons white-text wifi">wifi</i><p class="white-text login-p1">글을 올려 집회/시위를 홍보하세요</p>
+      <i class="material-icons white-text person_add">person_add</i><p class="white-text login-p2">집회에 도움을 줄 수 있는 사람을 찾아보세요</p>
+      <i class="material-icons white-text cloud">cloud</i><p class="white-text login-p3">크라우드 펀딩을 통해 후원해보세요</p>
+      <img class="login-img background" src="http://imgdb.kr/e7GI.jpg">
+    </div>
+    
+    <div class="col s6">
+      <h2 class="login-title">같이가치</h2>
+      <h6 class="login-subtitle signup">회원가입하기</h6>
+    
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
+    
+      <div class="input-field login-field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+    
+      <div class="input-field login-field pass" style="margin-bottom:0; padding-bottom:0;">
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "off" %>
+        <% if @minimum_password_length %>
+        <div class="mini-password">(<%= @minimum_password_length %> characters minimum)</div>
+        <% end %><br />
+      </div>
+    
+      <div class="input-field login-field conf" style="margin-top:8px;">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off" %>
+      </div>
+    
+      <div class="actions waves-effect waves-red btn-flat login" style="font-size:18px; text-align:center; line-height:48px;">
+        <%= f.submit "Sign up" %>
+      </div>
+      
+    <% end %>
+    
+      <div class="login-bottom">
+      <%= render "devise/shared/links" %>
+      </div>
+    </div> 
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+  
+</body>

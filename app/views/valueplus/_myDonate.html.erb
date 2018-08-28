@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
+        
     </head>
     <body>
         <% if @myDonate %>
             <h5><내 후원></h5>
             <% @myDonate.each do |a| %>
-                <p>"<a href ="/valueplus/show/<%= a.assembly.id %>"><%=a.assembly.title%></a>"게시물에 <%= a.donateUser %>만큼 후원하였습니다.</p>
+                <p>"<a href ="/valueplus/show/<%= a.assembly.id %>">
+                    <%=a.assembly.title%></a>"게시물에 <%= a.donateUser %>만큼 후원하였습니다.</p>
             <% end %>
         <% else %>
             <p>후원내역이 없습니다</p>

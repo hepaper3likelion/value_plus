@@ -1,30 +1,140 @@
 <!DOCTYPE html>
 <html>
-    <head>
+   <head>
+       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script>
+         // 카라우셀
+                  $(document).ready(function(){
+                      $('.carousel.carousel-slider').carousel({
+                        indicators: true  // 하단 동그라미 부분
+                      });
+                      $('.parallax').parallax();
+                  });
+         // 능력, 분류     
+        $(document).ready(function(){
+            $('.abilitySelect').formSelect().change(function() {
+                this.form.submit();
+            });;
+        });
+        $(document).ready(function(){
+            $('.categorySelect').formSelect().change(function() {
+                this.form.submit();
+            });;
+        });
+      
+        //
+        
+    </script>
+    <style>
+        .card {
+            height: 327px;
+            overflow: hidden;
+        }
+    </style>
     </head>
     <body>
-        <form action= '/valueplus/matchFilter' method='post'>
-            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-            (능력)<br>
-            <input type="checkbox" name="plan" value="plan">기획<br>
-            <input type="checkbox" name="mc" value="mc">진행<br>
-            <input type="checkbox" name="design" value="design">디자인<br>
-            <input type="checkbox" name="video" value="video">영상<br>
-            <input type="checkbox" name="sns" value="sns">sns<br>
-            (분야)<br>
-            <input type="checkbox" name="politic" value="politic">정치<br>
-            <input type="checkbox" name="society" value="society">사회일반<br>
-            <input type="checkbox" name="education" value="education">교육<br>
-            <input type="checkbox" name="foodMedi" value="foodMedi">식품/의료<br>
-            <input type="checkbox" name="press" value="press">언론<br>
-            <input type="checkbox" name="environment" value="environment">환경<br>
-            <input type="checkbox" name="right" value="right">인권/복지<br>
-            <input type="checkbox" name="female" value="female">여성<br>
-            <button type ='submit'>submit</button>
-        </form>
         
+        <!-- <form action= '/valueplus/matchFilter' method='post'>
+                           (능력)<br>
+                            <input type="checkbox" name="plan" value="plan">기획<br>
+                            <input type="checkbox" name="mc" value="mc">진행<br>
+                            <input type="checkbox" name="design" value="design">디자인<br>
+                            <input type="checkbox" name="video" value="video">영상<br>
+                            <input type="checkbox" name="sns" value="sns관리">sns<br>
+                            (분야)<br>
+                            <input type="checkbox" name="politic" value="politic">정치<br>
+                            <input type="checkbox" name="society" value="society">사회일반<br>
+                            <input type="checkbox" name="education" value="education">교육<br>
+                            <input type="checkbox" name="foodMedi" value="foodMedi">식품/의료<br>
+                            <input type="checkbox" name="press" value="press">언론<br>
+                            <input type="checkbox" name="environment" value="environment">환경<br>
+                            <input type="checkbox" name="right" value="right">인권/복지<br>
+                            <input type="checkbox" name="female" value="female">여성<br>
+                            <button type ='submit'>submit</button>
+                        </form>
+                    -->
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+       <br><br><br>
+       <div class="container">
+          <h3><b>필요한 사람들을 찾아보세요!</b></h3>
+       </div><br><br>
+       
+        <hr>
+            
+        <div class="container">
+        <div class="row">
+            <div class="input-field col s2">
+                <form action="/valueplus/matchFilter" method="post">
+                    <select name="ability" class="abilitySelect" style="color:red;">
+                        <option value="" disabled selected>능력</option>
+                        <option value="plan">기획</option>
+                        <option value="mc">mc</option>
+                        <option value="design">디자인</option>
+                        <option value="video">영상</option>
+                        <option value="sns">sns</option>
+                    </select>
+                </form>
+            </div>
+            
+            <div class="input-field col s2">
+                <form action="/valueplus/matchFilter" method="post">
+                    <select name="category" class="categorySelect">
+                        <option value="" disabled selected>관심분야</option>
+                        <option value="0">정치</option>
+                        <option value="1">사회일반</option>
+                        <option value="2">교육</option>
+                        <option value="3">노동</option>
+                        <option value="4">식품/의료</option>
+                        <option value="5">언론</option>
+                        <option value="6">환경</option>
+                        <option value="7">인권/복지</option>
+                        <option value="8">여성</option>
+    
+                    </select>
+                    <label></label>
+                </form>
+            </div>
+        </div>
+        </div>
+            
+        
+       <!-- <div>    
         <% @userMatch. each do |u| %>
-        <a href="/valueplus/mypage/<%= u.id%>"><%= u.email %></a>
-        <% end %>
-    </body>
+        <a href="/valueplus/mypage/<%= u.id%>">
+        <%= u.email %>
+        <% end %> 
+        </div> -->   
+        
+        
+         <!------ 피플 카드 ------->
+        <div class="card-collection">
+           
+            
+            <div class="container">
+                <div class="row">
+                        <!--반복 부분-->
+                        <%@userMatch.each do |p|%>
+                        <div class="col s3 m3 l3">
+                            <div class="card">
+                              <img src="http://www.gatoblanco.co.kr/m2/board/download.php?id=cat&no=89&div=0" class="img-circle" style="width:40%;">
+                                <div class="card-typo">
+                                    <h4 class="card-title people" style="font-size:18px; font-weight:bold;"><p.name></h4>
+                                    <p class="card-subtitle people" style="font-size:13px;"><%= p.email%></p>
+                                    <hr>
+                                    <p class="card-text people" style="font-size:13px;"><%=p.ability%></p>
+                                    <a href = "/valueplus/mypage/<%=p.id%>" class="waves-effect waves-light btn-small red people">자세히보기</a>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <%end%>
+                 </div>
+                </div>
+                       <!--반복 부분 끝-->
+                        
+                      
+                    
+            </body>
+    
+    
 </html>

@@ -1,11 +1,125 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <style>
+            img.checked{
+                opacity: 0.5;
+            }
+            .card {
+                height: 327px;
+                overflow: hidden;
+            }
+        </style>
     </head>
     <body>
-        <% @check. each do |c| %>
-        <a href="/valueplus/show/<%= c.id %>"><%= c.title %></a>
-        <% end %>
+        <h4 class="list-title">관리자 페이지</h4><hr>
+        
+        <!--미검토 시위 최신 4개-->
+        <div class="card-collection">
+            <div class="row category">
+                <div class="col s10"><h5 class="main-category" style="font-size:20px;">미검토 시위 최신 4개</h5></div>
+                <div class="col s2 right-align"><a href="/valueplus/notchecked" class="category-more" style="font-size:15px;">더보기</a></div>
+            </div>
+            
+            <div class="container">
+                <div class="row">
+                    <% @notchecked. each do |c| %>
+                    <!--반복 부분-->
+                    <div class="col s3 m3 l3">
+                        <a href="/valueplus/show/<%= c.id %>">
+                            <div class="card">
+                                <img src="<%= c.thumbnail.url %>" alt="thumbnail" style="width:100%">
+                                <div class="card-typo">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:800;"><%= c.title %></h4>
+                                    <p class="card-subtitle" style="font-size:13px;"><%= c.category %> | <%= c.host.name %></p>
+                                    <div class="progress red lighten-4">
+                                      <div class="determinate red" style="width: 70%"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s4"><p class="card-text left-align" style="font-size:13px;">09/30</p></div>
+                                        <div class="col s8 right-align"><p class="card-money" style="font-size:13px;"><%=c.donateGoal%>원</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <% end %>
+                </div>
+            </div>
+        </div> 
+
+        <!--검토승인 시위 최신 4개-->
+        <div class="card-collection">
+            <div class="row category">
+                <div class="col s10"><h5 class="main-category" style="font-size:20px;">검토승인 시위 최신 4개</h5></div>
+                <div class="col s2 right-align"><a href="/valueplus/checked_yes" class="category-more" style="font-size:15px;">더보기</a></div>
+            </div>
+            
+            <div class="container">
+                <div class="row">
+                    <% @checked_yes. each do |c| %>
+                    <!--반복 부분-->
+                    <div class="col s3 m3 l3">
+                        <a href="/valueplus/show/<%= c.id %>">
+                            <div class="card">
+                                <img src="<%= c.thumbnail.url %>" alt="thumbnail" style="width:100%">
+                                <div class="card-typo">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:800;"><%= c.title %></h4>
+                                    <p class="card-subtitle" style="font-size:13px;"><%= c.category %> | <%= c.host.name %></p>
+                                    <div class="progress red lighten-4">
+                                      <div class="determinate red" style="width: 70%"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s4"><p class="card-text left-align" style="font-size:13px;">09/30</p></div>
+                                        <div class="col s8 right-align"><p class="card-money" style="font-size:13px;"><%=c.donateGoal%>원</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <% end %>
+                </div>
+            </div>
+        </div> 
+
+        <!--검토거부 시위 최신 4개-->
+        <div class="card-collection">
+            <div class="row category">
+                <div class="col s10"><h5 class="main-category" style="font-size:20px;">검토거부 시위 최신 4개</h5></div>
+                <div class="col s2 right-align"><a href="/valueplus/checked_no" class="category-more" style="font-size:15px;">더보기</a></div>
+            </div>
+            
+            <div class="container">
+                <div class="row">
+                    <% @checked_no. each do |c| %>
+                    <!--반복 부분-->
+                    <div class="col s3 m3 l3">
+                        <a href="/valueplus/show/<%= c.id %>">
+                            <div class="card">
+                                <img src="<%= c.thumbnail.url %>" alt="thumbnail" style="width:100%">
+                                <div class="card-typo">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:800;"><%= c.title %></h4>
+                                    <p class="card-subtitle" style="font-size:13px;"><%= c.category %> | <%= c.host.name %></p>
+                                    <div class="progress red lighten-4">
+                                      <div class="determinate red" style="width: 70%"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s4">
+                                            <p class="card-text left-align" style="font-size:13px;"></p>
+                                        </div>
+                                        <div class="col s8 right-align"><p class="card-money" style="font-size:13px;"><%=c.donateGoal%>원</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <% end %>
+                </div>
+            </div>
+        </div> 
+
+   
+        </div> 
+        <br><br><br>
     </body>
 </html>
-    

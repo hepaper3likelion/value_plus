@@ -1,101 +1,158 @@
 <!DOCTYPE html>
 <html>
     <head>
+     <style>
+   [ type="radio"]:not(:checked), [type="radio"]:checked {
+               position: relative; 
+               opacity: 1;      }
+    </style>      
     </head>
     <body>
-        <h2><%= @user.email %></h2>
+      
+        
+        <div class="profile-container">
         <form action= '/valueplus/profileUpdate' method='post' enctype = "multipart/form-data">
-            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-            <input type = "hidden" name="user_id" value= <%= @user.id %>>
-            <p>프로필 이미지 : <input type = "file" name = "userProfile"></p>
-            <p><매칭여부></p>
-            <p><input type = "radio" name = "matching" value = "true" 
-            <% if @user.matching == true %>
-                checked="checked"
-            <% end %>
-            >yes
-            <input type = "radio" name = "matching" value = "false"
-            <% if @user.matching == false %>
-                checked="checked"
-            <% end %>
-            >no</p>
-            <p><소개글></p>
-            <p><textarea name = "introduce"><%= @user.introduce %></textarea></p>
-            <hr>
-            <p><분야></p>
-            <input type = "checkbox" name = "politic" value = "true"
-            <% if @category.politic == true %>
-                checked="checked"
-            <% end %>
-            >정치
-            <input type = "checkbox" name = "society" value = "true"
-            <% if @category.society == true %>
-                checked="checked"
-            <% end %>
-            >사회
-            <input type = "checkbox" name = "education" value = "true"
-            <% if @category.education == true %>
-                checked="checked"
-            <% end %>
-            >교육
-            <input type = "checkbox" name = "labor" value = "true"
-            <% if @category.labor == true %>
-                checked="checked"
-            <% end %>
-            >노동
-            <input type = "checkbox" name = "fooMedi" value = "true"
-            <% if @category.foodMedi == true %>
-                checked="checked"
-            <% end %>
-            >식품/의료
-            <input type = "checkbox" name = "press" value = "true"
-            <% if @category.press == true %>
-                checked="checked"
-            <% end %>
-            >언론
-            <input type = "checkbox" name = "environment" value = "true"
-            <% if @category.environment == true %>
-                checked="checked"
-            <% end %>
-            >환경
-            <input type = "checkbox" name = "right" value = "true"
-            <% if @category.right == true %>
-                checked="checked"
-            <% end %>
-            >인권
-            <input type = "checkbox" name = "female" value = "true"
-            <% if @category.female == true %>
-                checked="checked"
-            <% end %>
-            >여성
-            <p><능력></p>
-            <input type = "checkbox" name = "plan" value = "true"
-            <% if @ability.plan == true %>
-                checked="checked"
-            <% end %>
-            >기획
-            <input type = "checkbox" name = "mc" value = "true"
-            <% if @ability.mc == true %>
-                checked="checked"
-            <% end %>
-            >진행
-            <input type = "checkbox" name = "design" value = "true"
-            <% if @ability.design == true %>
-                checked="checked"
-            <% end %>
-            >디자인
-            <input type = "checkbox" name = "video" value = "true"
-            <% if @ability.video == true %>
-                checked="checked"
-            <% end %>
-            >영상
-            <input type = "checkbox" name = "sns" value = "true"
-            <% if @ability.sns == true %>
-                checked="checked"
-            <% end %>
-            >sns
-            <hr>
-            <button type ='submit'>submit</button>
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+              <div class="col s12 m7">
+              <h5 class="header"><%= @user.email %> <br><h5><%= @user.name %></h5></h5>
+            
+               <!--프로필 이미지-->
+                                 <div class="card horizontal">
+                       
+                     <div class="img-circle">
+                       <input type = "hidden" name="user_id" value= <%= @user.id %>>
+                       <p>프로필 이미지 : <input type = "file" name = "profile"></p>
+                     </div>
+                                 </div>        
+              
+                 <!--프로필 내용 -->
+                  <div class="card-stacked">
+                          <div class="card-content"></div>      
+                       <p><매칭여부></p>
+                                <form action="#">
+                                    <p>
+                                      <label>
+                                        <input name="card-matching" class="with-gap" type="radio" />
+                                        <span>YES</span>
+                                      </label>
+                                    </p>
+                                    <p>
+                                      <label>
+                                        <input name="card-matching" class="with-gap" type="radio" />
+                                        <span>NO</span>
+                                      </label>
+                                    </p>
+                                    <p>    
+                            
+                      <p><소개글></p>
+                            <p><textarea name = "introduce"><%= @user.introduce %></textarea></p>
+                            <hr>
+                           
+                      <p><분야></p>
+                       
+                           <p>
+                            <label>
+                             <input name="politic" class="with-gap" type="radio" />
+                              <span>정치</span>
+                             </label>
+                           </p>
+                           <p>
+                             <label>
+                             <input name="society" class="with-gap" type="radio" />
+                              <span>사회</span>
+                              </label>
+                            </p>
+                            <p>    
+                              <label>
+                                <input name="education" class="with-gap" type="radio" />
+                                <span>교육</span>
+                               </label>
+                            </p>
+                            <p>
+                              <label>
+                                <input name="labor" class="with-gap" type="radio" />
+                                <span>노동</span>
+                               </label>
+                            </p>
+                            <p>    
+                             <label>    
+                            <input  name = "fooMedi" class= "with-gap" type = "radio" />
+                            <span>식품/의료</span>
+                              </label>
+                            </p>
+                            <p>
+                              <label>
+                                <input name= "press" class="with-gap" type="radio" />
+                                <span>언론</span>
+                               </label>
+                            </p>
+                            <p>    
+                             <label>    
+                            <input  name = "environment" class= "with-gap" type = "radio" />
+                            <span>환경</span>
+                              </label>
+                            </p>
+                            <p>
+                              <label>
+                                <input name= "right" class="with-gap" type="radio" />
+                                <span>인권</span>
+                               </label>
+                            </p>
+                            <p>    
+                             <label>    
+                            <input  name = "female" class= "with-gap" type = "radio" />
+                            <span>여성</span>
+                              </label>
+                            </p>
+                        
+                    <p><능력></p> <!--plan, :mc, :design, :video, :sns]-->
+                          <p>    
+                             <label>    
+                            <input  name = "plan" class= "with-gap" type = "radio" />
+                            <span>기획</span>
+                              </label>
+                            </p>
+                            <p>
+                              <label>
+                                <input name= "mc" class="with-gap" type="radio" />
+                                <span>진행</span>
+                               </label>
+                            </p>
+                                                      <p>    
+                             <label>    
+                            <input  name = "design" class= "with-gap" type = "radio" />
+                            <span>디자인</span>
+                              </label>
+                            </p>
+                            <p>
+                              <label>
+                                <input name= "video" class="with-gap" type="radio" />
+                                <span>영상</span>
+                               </label>
+                            </p>
+                                                      <p>    
+                             <label>    
+                            <input  name = "SNS" class= "with-gap" type = "radio" />
+                            <span>SNS</span>
+                              </label>
+                            </p>
+                            
+             </form>                     
+
+                        </div>
+                   <!--submit--버튼-->
+                         <div class="card-action">
+                         <button type a href="#">submit</button>
+                         </div>
+                </div>  <!--card stacked-->
+             </div> <!--card horizental-->
+        </div>               <!-- <div class="col s12 m7"> -->
+
         </form>
+
+</div>
+       
+        
     </body>
 </html>
+

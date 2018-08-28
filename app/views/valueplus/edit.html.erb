@@ -12,51 +12,51 @@
             <p>집회 포스터 이미지: <input type = "file" name = "poster"></p>
             <p>집회 설명: <input type = "string" name = "content" value = <%= @assembly.content %>></p>
             <p><분야></p>
-            <input type = "checkbox" name = "politic" value = "true"
-            <% if @category.politic == true %>
+            <input type = "radio" name = "category" value = "0"
+            <% if @category.politic == 0 %>
                 checked="checked"
             <% end %>
-            >정치
-            <input type = "checkbox" name = "society" value = "true"
-            <% if @category.society == true %>
+            />정치
+            <input type = "radio" name = "category" value = "1"
+            <% if @category.society == 1 %>
                 checked="checked"
             <% end %>
-            >사회
-            <input type = "checkbox" name = "education" value = "true"
-            <% if @category.education == true %>
+            />사회
+            <input type = "radio" name = "category" value = "2"
+            <% if @category.education == 2 %>
                 checked="checked"
             <% end %>
-            >교육
-            <input type = "checkbox" name = "labor" value = "true"
-            <% if @category.labor == true %>
+            />교육
+            <input type = "radio" name = "category" value = "3"
+            <% if @category.labor == 3 %>
                 checked="checked"
             <% end %>
-            >노동
-            <input type = "checkbox" name = "fooMedi" value = "true"
-            <% if @category.foodMedi == true %>
+            />노동
+            <input type = "radio" name = "category" value = "4"
+            <% if @category.foodMedi == 4 %>
                 checked="checked"
             <% end %>
-            >식품/의료
-            <input type = "checkbox" name = "press" value = "true"
-            <% if @category.press == true %>
+            />식품/의료
+            <input type = "radio" name = "category" value = "5"
+            <% if @category.press == 5 %>
                 checked="checked"
             <% end %>
-            >언론
-            <input type = "checkbox" name = "environment" value = "true"
-            <% if @category.environment == true %>
+            />언론
+            <input type = "radio" name = "category" value = "6"
+            <% if @category.environment == 6 %>
                 checked="checked"
             <% end %>
-            >환경
-            <input type = "checkbox" name = "right" value = "true"
-            <% if @category.right == true %>
+            />환경
+            <input type = "radio" name = "category" value = "7"
+            <% if @category.right == 7 %>
                 checked="checked"
             <% end %>
-            >인권
-            <input type = "checkbox" name = "female" value = "true"
-            <% if @category.female == true %>
+            />인권
+            <input type = "radio" name = "category" value = "8"
+            <% if @category.female == 8 %>
                 checked="checked"
             <% end %>
-            >여성
+            />여성
             <p>목적: <input type = "text" name = "purpose" value = <%= @assembly.purpose %>></p>
             <p>일시: <input type = "date" name = "calendar" value = <%= @assembly.calendar %>></p>
             <div>

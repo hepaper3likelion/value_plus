@@ -1,86 +1,201 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-    </head>
-    <body>
-        <h3>집회 등록하기</h3>
-        <form action = "/valueplus/create" method = "post" enctype = "multipart/form-data">
-            <input type="hidden" name="check" value=1>
-            <input type="hidden" name="user_id" value="<%= current_user.id %>">
-            <p>집회명 : <input type = "string" name = "title"></p>
-            <p>썸네일 이미지: <input type = "file" name = "thumbnail"></p>
-            <p>집회 포스터 이미지: <input type = "file" name = "poster"></p>
-            <p>집회 설명: <input type = "string" name = "content"></p>
-            <p><분야></p>
-            <input type = "radio" name ="category" value= "politic">정치
-            <input type = "radio" name= "category" value= "society">사회
-            <input type = "radio" name= "category" value= "education">교육
-            <input type = "radio" name= "category" value= "labor">노동
-            <input type = "radio" name= "category" value= "foodMedi">식품/의료
-            <input type = "radio" name= "category" value= "press">언론
-            <input type = "radio" name= "category" value= "environment">환경
-            <input type = "radio" name= "category" value= "right">인권
-            <input type = "radio" name= "category" value= "female">여성
-            <p>목적: <input type = "text" name = "purpose"></p>
-            <p>일시: <input type = "date" name = "calendar"></p>
-            <div>
-                <p>장소</p>
-                <input type="text" id="sample6_postcode" placeholder="우편번호">
-                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                <input type="text" id="sample6_address" name="roadAddress" placeholder="주소">
-                <input type="text" id="sample6_address2" name="specificAdd" placeholder="상세주소">
-                <input type="hidden" id="sample6_sido" name="sido">
-            </div>
-            <p>신고서 이미지 파일: <input type = "file" name = "report"></p>
-            <p>후원 목표 금액: <input type = "string" name = "donateGoal"></p>
-            <p>후원 마감일: <input = type = "date" name = "donateDeadline"></p>
-            <p>주최자
-                <p>주최자 이름 :<input type="string" name="name"></p>
-                <p>주최자 이메일 :<input type="email" name="email"></p>
-                <p>주최자 소개 :<input type="text" name="intro"></p>             
-                <p>주최자 프로필이미지 :<input type="file" name="hostProfile"></p>
-            </p>            
-            <p><button type = "submit">검토 요청 하기</button></p>
-        </form>
-    </body>
-    <script>
-        function sample6_execDaumPostcode() {
-            new daum.Postcode({
-                oncomplete: function(data) {
-                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-                    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                    var fullAddr = ''; // 최종 주소 변수
-                    var extraAddr = ''; // 조합형 주소 변수
-                    // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                        fullAddr = data.roadAddress;
-    
-                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                        fullAddr = data.jibunAddress;
-                    }
-                    // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-                    if(data.userSelectedType === 'R'){
-                        //법정동명이 있을 경우 추가한다.
-                        if(data.bname !== ''){
-                            extraAddr += data.bname;
-                        }
-                        // 건물명이 있을 경우 추가한다.
-                        if(data.buildingName !== ''){
-                            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                        }
-                        // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-                        fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-                    }
-                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                    document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
-                    document.getElementById('sample6_address').value = fullAddr;
-                    document.getElementById('sample6_sido').value = data.sido;
-                    // 커서를 상세주소 필드로 이동한다.
-                    document.getElementById('sample6_address2').focus();
-                }
-            }).open();
+  <head>
+      <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <script>
+        $(document).ready(function(){
+          $('.collapsible').collapsible();
+        });
+       </script>
+      <style>
+          .collapsible-header {
+            position: relative;
         }
-    </script>
+          .collapsible-header i.material-icons {
+            position: absolute;
+            right: 0;
+        }
+          [type="radio"]:not(:checked), [type="radio"]:checked {
+               position: relative; 
+               opacity: 1; 
+          }
+          
+      </style>
+  </head>
+  <body>
+      
+      <div class="container">
+          <div class="new-intro">
+            <h3 class="new-intro-h3"><b>간편하게 시위를 올려보세요!</b></h3>
+            <p class="new-intro-p">시위를 등록하기 위해서는 아래의 세 개 섹션을 완성해주세요.<br>완성한 시위폼은 관리자에게 전달되어 승인된 경우 사이트에 표시됩니다.</span>
+          </div>
+    
+      <hr>
+      
+      </div>
+      
+      <form action = "/valueplus/create" method = "post" enctype = "multipart/form-data">
+          <div class="container">
+              <input type="hidden" name="check" value=2>
+              <input type="hidden" name="user_id" value="<%= current_user.id %>">
+              <h5>시위정보</h5>
+              <ul class="collapsible" data-collapsible="accordion">
+                  <li class="active">
+                    <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>분야설정</div>
+                    <div class="collapsible-body">
+                      <label><input type = "radio" name ="category" value= "0" />정치</label>
+                      <label><input type = "radio" name= "category" value= "1" />사회</label>
+                      <label><input type = "radio" name= "category" value= "2" />교육</label>
+                      <label><input type = "radio" name= "category" value= "3" />노동</label>
+                      <label><input type = "radio" name= "category" value= "4" />식품/의료</label>
+                      <label><input type = "radio" name= "category" value= "5" />언론</label>
+                      <label><input type = "radio" name= "category" value= "6" />환경</label>
+                      <label><input type = "radio" name= "category" value= "7" />인권</label>
+                      <label><input type = "radio" name= "category" value= "8" />여성</label>
+                    </div>
+                  </li>  
+                  <li>
+                    <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>시위이름</div>
+                    <div class="collapsible-body"><p>집회명: <input type = "string" name = "title"></p></div>
+                  </li>
+                  <li>
+                    <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>시위일시</div>
+                    <div class="collapsible-body"><p>시위일시: <input type = "date" name = "calendar"></p></div>
+                  </li>
+                  <li>
+                    <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>시위장소</div>
+                    <div class="collapsible-body">
+                      <p>장소</p>
+                      <input type="text" id="sample6_postcode" placeholder="우편번호">
+                      <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                      <input type="text" id="sample6_address" name="roadAddress" placeholder="주소">
+                      <input type="text" id="sample6_address2" name="specificAdd" placeholder="상세주소">
+                      <input type="hidden" id="sample6_sido" name="sido">
+                    </div>
+                  </li>
+                  <li class="active">
+                    <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>썸네일 이미지</div>
+                    <div class="collapsible-body">
+                      <p>
+                      썸네일 이미지: <input type="file" name = "thumbnail" />
+                      </p>
+                    </div>
+                    
+            
+                  </li>    
+              </ul>
+            </div><br><br>
+            <div class="container">
+              <input type="hidden" name="check" value=2>
+              <input type="hidden" name="user_id" value="<%= current_user.id %>">
+              <h5>시위설명</h5>
+              <ul class="collapsible" data-collapsible="accordion">
+                  <li>
+                    <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>포스터 이미지</div>
+                    <div class="collapsible-body"><p>집회 포스터 이미지: <input type = "file" name = "poster"></p></div>
+                  </li>
+                  <li>
+                    <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>시위목적</div>
+                    <div class="collapsible-body"><p>시위목적: <input type = "text" name = "purpose"></p></div>
+                  </li>
+                  <li>
+                    <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>시위설명</div>
+                    <div class="collapsible-body"><p>집회 설명: <input type = "string" name = "content"></p></div>
+                  </li>  
+              </ul>
+          </div><br><br>
+          <div class="container">
+              <input type="hidden" name="check" value=2>
+              <input type="hidden" name="user_id" value="<%= current_user.id %>">
+              <h5>주최자</h5>
+              <ul class="collapsible" data-collapsible="accordion">
+                  <li>
+                    <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>주최자</div>
+                    <div class="collapsible-body"><p>주최자 이름: <input type="string" name="name"></p></div>
+                  </li>
+                  <li>
+                    <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>주최자 이메일</div>
+                    <div class="collapsible-body"><p>주최자 이메일: <input type="email" name="email"></p></div>
+                  </li>                    
+                  <li>
+                    <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>주최자 소개</div>
+                    <div class="collapsible-body"><p>주최자 소개: <input type="text" name="intro"></p></div>
+                  </li>
+              </ul>
+          </div><br><br>
+          <div class="container">
+              <input type="hidden" name="check" value=2>
+              <input type="hidden" name="user_id" value="<%= current_user.id %>">
+              <h5>후원하기</h5>
+              <ul class="collapsible" data-collapsible="accordion">
+                  <li>
+                    <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>목표금액</div>
+                    <div class="collapsible-body"><p>후원 목표 금액: <input type = "string" name = "donateGoal"></p></div>
+                  </li>
+                  <li>
+                    <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>후원마감일</div>
+                    <div class="collapsible-body"><p>후원 마감일: <input type = "date" name = "donateDeadline"></p></div>
+                  </li>                    
+              </ul>
+          </div><br><br>
+          <div class="container">
+              <input type="hidden" name="check" value=2>
+              <input type="hidden" name="user_id" value="<%= current_user.id %>">
+              <h5>집회 허가신청서 제출</h5>
+              <ul class="collapsible" data-collapsible="accordion">
+                  <li>
+                    <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>집회 허가신청서 파일</div>
+                    <div class="collapsible-body"><p>신고서 이미지 파일: <input type = "file" name = "report"></p></div>
+                  </li>
+              </ul>
+          </div><br><br>
+          <div class="container row">
+            <div class="col s10">
+               <button type = "submit" class="waves-effect waves-light btn-large red accent-1 intro" style="float:right;">검토 요청 하기</button>
+            </div>
+          </div>
+      </form>
+  </body>
+  <script>
+      function sample6_execDaumPostcode() {
+          new daum.Postcode({
+              oncomplete: function(data) {
+                  // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                  // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                  // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                  var fullAddr = ''; // 최종 주소 변수
+                  var extraAddr = ''; // 조합형 주소 변수
+                  // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                  if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                      fullAddr = data.roadAddress;
+  
+                  } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                      fullAddr = data.jibunAddress;
+                  }
+                  // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+                  if(data.userSelectedType === 'R'){
+                      //법정동명이 있을 경우 추가한다.
+                      if(data.bname !== ''){
+                          extraAddr += data.bname;
+                      }
+                      // 건물명이 있을 경우 추가한다.
+                      if(data.buildingName !== ''){
+                          extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                      }
+                      // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                      fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                  }
+                  // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                  document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
+                  document.getElementById('sample6_address').value = fullAddr;
+                  document.getElementById('sample6_sido').value = data.sido;
+                  // 커서를 상세주소 필드로 이동한다.
+                  document.getElementById('sample6_address2').focus();
+              }
+          }).open();
+      }
+  </script>
+
 </html>
+    

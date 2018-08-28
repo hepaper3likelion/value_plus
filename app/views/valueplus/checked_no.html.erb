@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <style>
+            img.checked{
+                opacity: 0.5;
+            }
+            .card {
+                height: 327px;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <h4 class="list-title">검토거부 시위</h4><hr>
+        
+        <div class="card-collection">
+            <div class="row category">
+                <div class="col s10"><h5 class="main-category" style="font-size:15px;">검토거부된 시위</h5></div>
+            </div>
+            
+            <div class="container">
+                <div class="row">
+                    
+
+                    <!--반복 부분-->
+                    <% @assembly.each do |a|%>
+                        <div class="col s3 m3 l3">
+                           
+                                <div class="card">
+                
+                                    <img src="<%= a.thumbnail.url %>" alt="thumbnail" style="width:100%">
+                                    <div class="card-typo">
+                                        <a href="/valueplus/show/<%=a.id%>"><h4 class="card-title" style="font-size:18px; font-weight:800;"><%= a.title%></h4></a>
+                                        <p class="card-subtitle" style="font-size:13px;">
+                                            <% if a.category == 0%>
+                                            정치
+                                            <% end %>
+                                            <% if a.category == 1%>
+                                            사회
+                                            <% end %>
+                                            <% if a.category == 2%>
+                                            교육
+                                            <% end %>
+                                            <% if a.category == 3%>
+                                            노동
+                                            <% end %>
+                                            <% if a.category == 4%>
+                                            식품/의료
+                                            <% end %>
+                                            <% if a.category == 5%>
+                                            언론
+                                            <% end %>
+                                            <% if a.category == 6%>
+                                            환경
+                                            <% end %>
+                                            <% if a.category == 7%>
+                                            인권
+                                            <% end %>
+                                            <% if a.category == 8%>
+                                            여성
+                                            <% end %></p>
+                                            
+                                        <hr class="card-hr">
+                                        
+                                        <div class="row">
+                                            <div class="col s5">
+                                                <p class="card-text left-align" style="font-size:13px;">
+                                                <!--날짜안나와-->
+                                                </p>
+                                            </div>
+                                            <div class="col s7 right-align"><i class="material-icons grey-text tiny money" >monetization_on</i> <span class="card-money" style="font-size:13px;"><%=a.donateGoal%> 원 목표</span></div>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                            
+                        </div>
+                    <% end %>  
+                      
+                        
+                       
+                </div>
+            </div>
+        </div> 
+
+     
+
+    </body>
+</html>
